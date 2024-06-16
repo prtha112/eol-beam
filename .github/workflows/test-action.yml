@@ -1,0 +1,16 @@
+name: Test Action
+on: [push]
+
+jobs:
+  check-eol-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Check eol version
+        id: get_version
+        uses: prtha112/eol-check@v1
+        with:
+          filename: AllDetails.csv
+      - run: |
+          ls -la

@@ -1,0 +1,25 @@
+name: 'Eol-beam'
+description: 'A GitHub Action that takes an input and returns the square of the number'
+inputs:
+  filename:
+    description: 'Enter a filename'
+    required: true
+    default: "1"
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'  
+    - name: Install Dependencies
+      run: pip install -r requirements.txt
+      shell: bash
+    - name: Pass Inputs to Shell
+      run: |
+        echo "INPUT_FILENAME=${{ inputs.filename }}" >> $GITHUB_ENV
+      shell: bash
+    - name: Check eol version
+      id: get-version
+      run: python src/main.py
+      shell: bash
